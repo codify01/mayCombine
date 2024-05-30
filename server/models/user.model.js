@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const bycrypt = require("")
+// const bycrypt = require("")
 
 const userSchema = mongoose.Schema({
     firstName:{type:String, required:true},
