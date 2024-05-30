@@ -3,32 +3,23 @@ const userModel = require("../models/user.model");
 
 
 const getRegister = (req,res)=>{
-        res.send([
-            {
-                "name": "Leanne Graham",
-                "username": "Bret",
-                "email": "Sincere@april.biz"
-            },
-            {
-                "name": "Leanne Graham",
-                "username": "Bret",
-                "email": "Sincere@april.biz"
-            },
-            {
-                "name": "Leanne Graham",
-                "username": "Bret",
-                "email": "Sincere@april.biz"
-            },
-            {
-                "name": "Leanne Graham",
-                "username": "Bret",
-                "email": "Sincere@april.biz"
-            },
-        ])
+
+    userModel.find().then((users)=>{
+        res.send(users)
+    }).catch((err)=>{
+        res.send({message:err.message})
+    })
+       
 }
 
 const getSignin = (req,res)=>{
-    res.send('sfsvddv')
+    userModel.findOne({email:req.body.email})
+    .then((result)=>{
+        res.send(result)
+    }).catch((err)=>{
+        res.send("error")
+        console.log(err);
+    })
 }
 const postSignin = (req,res)=>{
     userModel.findOne({email:req.body.email}).then((user)=>{

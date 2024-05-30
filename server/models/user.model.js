@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-// const bycrypt = require("")
-
+require('dotenv').config()
+const bcrypt = require("bcrypt")
 const userSchema = mongoose.Schema({
     firstName:{type:String, required:true},
     lastName:{type:String, required:true},
@@ -8,14 +8,15 @@ const userSchema = mongoose.Schema({
     password:{type:String, required:true}
 })
 
-userSchema.pre("save", (next)=>{
-    bycrypt.hash(this.password, 10).then((hashed)=>{
+userSchema.pre("save", function(next){
+    bcrypt.hash(this.password, 10)
+    .then((hashed)=>{
         console.log(this);
         this.password = hashed
         console.log(hashed);
         next()
     }).catch((err)=>{
-        console.log(err);
+        console.log(err.message);
     })
 })
 const userModel = mongoose.model('user_collection', userSchema)

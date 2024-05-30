@@ -2,15 +2,19 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
 const ListOfStudent = () => {
-  const [list, setList] = useState([])
+  const [list, setList] = useState()
   const [isLoading, setisloading] = useState(true)
     let url = 'http://localhost:5000/user/register'
     useEffect(() => {
         axios.get(url)
         .then((res)=>{
-            setList(res.data)
+          console.log(res.data);
+          setList(res.data)
             setisloading(false)
-        }).catch((err)=>{
+            console.log(list);
+          }).catch((err)=>{
+            setisloading(false)
+            alert(err.message)
             console.log(err);
         })
     }, [])
@@ -25,11 +29,11 @@ const ListOfStudent = () => {
         { isLoading?<div className='loader'></div>:
         <div>
         {
-          list.map((eachList)=>(
-            <div className='flex flex-wrap text-xl font-semibold odd:bg-slate-700 bg-slate-600  text-teal-100'>
-            <h1 className='flex-1 border p-3'>{eachList.name}</h1>
+          list.map((eachList, i)=>(
+            <div className='flex flex-wrap text-xl font-semibold odd:bg-slate-700 bg-slate-600  text-teal-100' key={i}>
+            <h1 className='flex-1 border p-3'>{eachList.firstName + ' ' + eachList.lastName}</h1>
             <h1 className='flex-1 border p-3'>{eachList.email}</h1>
-            <h1 className='flex-1 border p-3'>{eachList.username}</h1>
+            <h1 className='flex-1 border p-3'>{eachList.password}</h1>
           </div>
           ))
         }
