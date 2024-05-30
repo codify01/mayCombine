@@ -16,12 +16,12 @@ const SignUp = () => {
             console.log(res.data);
             res.data.status?navigate('/login'):alert(res.data.message)
         }).catch((err)=>{
-            console.log(err);
+            console.error(err);
+            alert(err.data.errorCode)
         })
     }
   return (
     <div>
-
         <div className="max-w-sm mx-auto bg-slate-900 p-5 rounded mt-10">
             <h1 className='text-white text-xl font-bold text-center py-5'>Sign Up</h1>
             <div className="mb-5">
@@ -52,7 +52,6 @@ const SignUp = () => {
             </div> */}
             <button type="" onClick={register} className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800">Register new account</button>
         </div>
-
     </div>
   )
 }

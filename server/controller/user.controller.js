@@ -32,13 +32,15 @@ const getSignin = (req,res)=>{
 }
 const postSignin = (req,res)=>{
     userModel.findOne({email:req.body.email}).then((user)=>{
+        console.log(user);
         if(user.password === req.body.password){
-            res.send({message:'loggin in', status:true})
+            res.send({message:'loggin in', isValid:true, status:true})
+            console.log(user);
         }else{
-            res.send({message:'Incorrect password'})
+            res.send({message:'Incorrect password',isValid:false, status:true})
         }
     }).catch((err)=>{
-        res.send({message:err.code, message:err.message, status:false})
+        res.send({errorCode:err.code, errorMessage:err.message, status:false})
     })
 }
 
