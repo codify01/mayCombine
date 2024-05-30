@@ -8,16 +8,16 @@ const userSchema = mongoose.Schema({
     password:{type:String, required:true}
 })
 
-// userSchema.pre("save", (next)=>{
-//     bycrypt.hash(this.password, 10).then((hashed)=>{
-//         console.log(this);
-//         this.password = hashed
-//         console.log(hashed);
-//         next()
-//     }).catch((err)=>{
-//         console.log(err);
-//     })
-// })
+userSchema.pre("save", (next)=>{
+    bycrypt.hash(this.password, 10).then((hashed)=>{
+        console.log(this);
+        this.password = hashed
+        console.log(hashed);
+        next()
+    }).catch((err)=>{
+        console.log(err);
+    })
+})
 const userModel = mongoose.model('user_collection', userSchema)
 
 
