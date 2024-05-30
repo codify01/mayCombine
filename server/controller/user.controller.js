@@ -27,20 +27,26 @@ const getRegister = (req,res)=>{
         ])
 }
 
+const getSignin = (req,res)=>{
+    res.send('sfsvddv')
+}
+const postSignin = (req,res)=>{
+    userModel.findOne()
+    res.send('sfsvddv')
+}
 
-const register = (req,res)=>{
-    console.log(req.body);
+const postRegister = (req,res)=>{
     let user = new userModel(req.body)
     user.save()
     .then((user)=>{
-        console.log('User saved');
         console.log(user);
+        res.send({message:'User saved', status:true});
     }).catch((err)=>{
-        console.log('user not saved');
+        res.send({message:'user not saved', errorCode:err.code, errorMessage:err.message, status:false});
         console.log(err);
 
     })
 }
 
 
-module.exports = {register, getRegister}
+module.exports = {postRegister, getRegister, getSignin, postSignin}
