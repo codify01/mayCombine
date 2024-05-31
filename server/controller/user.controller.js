@@ -39,12 +39,9 @@ const postRegister = (req,res)=>{
     let user = new userModel(req.body)
     user.save()
     .then((user)=>{
-        console.log(user);
         res.send({message:'User saved', status:true});
     }).catch((err)=>{
         res.send({message:'user not saved', errorCode:err.code, errorMessage:err.message, status:false});
-        console.log(err);
-
     })
 }
 

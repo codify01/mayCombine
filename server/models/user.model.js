@@ -11,9 +11,7 @@ const userSchema = mongoose.Schema({
 userSchema.pre("save", function(next){
     bcrypt.hash(this.password, 10)
     .then((hashed)=>{
-        console.log(this);
         this.password = hashed
-        console.log(hashed);
         next()
     }).catch((err)=>{
         console.log(err.message);
