@@ -4,6 +4,7 @@ import ListOfStudent from './components/ListOfStudent'
 import SignIn from './components/SignIn'
 import { Route, Routes } from 'react-router-dom'
 import NavBar from './components/NavBar'
+import Product from './components/Product'
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route path='/' element={ <SignUp/>}/>
         <Route path='/list' element={ <ListOfStudent/>}/>
         <Route path='/login' element={ <SignIn/>}/>
+        <Route path='/product' element={ <Product/>}/>
       </Routes>
    </>
   )
