@@ -1,4 +1,5 @@
 const userModel = require("../models/user.model");
+const bcrypt = require('bcrypt')
 
 
 
@@ -22,14 +23,21 @@ const getSignin = (req,res)=>{
     })
 }
 const postSignin = (req,res)=>{
-    userModel.findOne({email:req.body.email}).then((user)=>{
+    let {email, password} = req.body
+    userModel.findOne({email: email}).then((user)=>{
         console.log(user);
-        if(user.password === req.body.password){
-            res.send({message:'loggin in', isValid:true, status:true})
-            console.log(user);
+        if(user){ 
+            const result = bcrypt.compareSync(password, user.password)
+            if(result){
+                res.send({message:'loggin in', isValid:true, status:true})
+                console.log(user);
+                console.log('loggin in');
+            }else {
+                res.send({message:'Incorrect password',isValid:false, status:true})
+            }
         }else{
-            res.send({message:'Incorrect password',isValid:false, status:true})
-        }
+            res.send({message:'User not found',isValid:false, status:true})
+        } 
     }).catch((err)=>{
         res.send({errorCode:err.code, errorMessage:err.message, status:false})
     })
