@@ -7,7 +7,7 @@
     width: 45px;
     margin: 60px auto;
     aspect-ratio: 1;
-    --c:no-repeat linear-gradient(#000 0 0);
+    --c:no-repeat linear-gradient(#1e293b 0 0);
     background: var(--c), var(--c), var(--c);
     animation: 
       l18-1 1s infinite,

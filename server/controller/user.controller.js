@@ -13,8 +13,17 @@ const getRegister = (req,res)=>{
        
 }
 
+const getuser = (req,res)=>{
+    userModel.findOne({email:req.params.user})
+    .then((user)=>{
+        res.send(user)
+    }).catch((err)=>{
+        res.send(err)
+    })
+}
+
 const getSignin = (req,res)=>{
-    userModel.findOne({email:req.body.email})
+    userModel.findOne({email:user})
     .then((result)=>{
         res.send(result)
     }).catch((err)=>{
@@ -54,4 +63,4 @@ const postRegister = (req,res)=>{
 }
 
 
-module.exports = {postRegister, getRegister, getSignin, postSignin}
+module.exports = {postRegister, getRegister, getSignin, postSignin, getuser}
