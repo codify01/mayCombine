@@ -14,7 +14,8 @@ const SignIn = () => {
         setisloading(true)
         axios.post(url, {email,password})
         .then((res)=>{
-            res.data.isValid?navigate('/list'):alert(res.data.message)
+            
+            res.data.isValid?navigate(`/list/${email}`):alert(res.data.message)
             setisloading(false)
             console.log(res);
         }).catch((err)=>{

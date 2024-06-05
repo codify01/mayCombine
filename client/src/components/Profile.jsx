@@ -5,11 +5,11 @@ import { useParams } from 'react-router-dom'
 const Profile = () => {
 const {user} = useParams()
 const [users, setUser] = useState({})
-const [isLoading, setisloading] =useState(false)
+const [isLoading, setisloading] =useState(true)
 let url = `http://localhost:5000/user/register/${user}`
     useEffect(() => {
         axios.get(url)
-        setisloading(true)
+        // setisloading(true)
         .then((res)=>{
           console.log(res.data);
           setUser(res.data)
