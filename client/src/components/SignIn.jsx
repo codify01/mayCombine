@@ -8,14 +8,15 @@ const SignIn = () => {
     const [password, setPassword] = useState('')
     const [isloading, setisloading] = useState(null)
     let url = 'http://localhost:5000/user/signin'
+    // let token = '12345'
 
     const login = ()=>{
         console.log(email,password);
         setisloading(true)
         axios.post(url, {email,password})
         .then((res)=>{
-            
             res.data.isValid?navigate(`/list/${email}`):alert(res.data.message)
+            localStorage.setItem("token", res.data.token)
             setisloading(false)
             console.log(res);
         }).catch((err)=>{

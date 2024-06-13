@@ -1,5 +1,8 @@
 const userModel = require("../models/user.model");
 const bcrypt = require('bcrypt')
+require('dotenv').config()
+const jwt = require('jsonwebtoken')
+const secret = process.env.SECRET
 
 
 
@@ -33,13 +36,16 @@ const getSignin = (req,res)=>{
 }
 const postSignin = (req,res)=>{
     let {email, password} = req.body
+    
     userModel.findOne({email: email}).then((user)=>{
         console.log(user);
         if(user){ 
             const result = bcrypt.compareSync(password, user.password)
             if(result){
-                res.send({message:'loggin in', isValid:true, status:true})
+                const token = jwt.sign({user}, secret, {expiresIn: '1h'})
+                res.send({message:'loggin in', isValid:true, status:true, token:token})
                 console.log(user);
+                console.log(token);
                 console.log('loggin in');
             }else {
                 res.send({message:'Incorrect password',isValid:false, status:true})
@@ -47,6 +53,7 @@ const postSignin = (req,res)=>{
         }else{
             res.send({message:'User not found',isValid:false, status:true})
         } 
+        
     }).catch((err)=>{
         res.send({errorCode:err.code, errorMessage:err.message, status:false})
     })
