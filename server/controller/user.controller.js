@@ -87,7 +87,7 @@ const sendMail = ()=>{
       }
 
       transporter.sendMail(mailOptions).then((info)=>{
-        res.status(201).json({message:'Mail sent succefully', status:true})
+        res.status(201).json({message:'Mail sent successfully', status:true})
         console.log(info)
         }).catch((err)=>{
           res.status(500).json({message:'Mail was not sent succefully', status:false})
