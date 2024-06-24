@@ -9,6 +9,11 @@ const Formik = () => {
             email: '',
             password: ''
         },
+        validationSchema: Yup.object({
+            firstname: Yup.string().max(10, "10 characters or less").required('required'),
+            lasstname: Yup.string().max(10, "10 characters or less").required('required'),
+            email: Yup.string().email().required('required'),
+        }),
         onSubmit: (values, {resetForm}) => {
             console.log(values);
             resetForm()
@@ -16,7 +21,7 @@ const Formik = () => {
     });
 	return (
 		<div>
-			<form>
+			<form onSubmit={formik.handleSubmit}>
 				<div className="flex flex-col w-[30%] mx-auto py-3">
 					<label htmlFor="" className="font-bold">
 						First Name
@@ -24,7 +29,6 @@ const Formik = () => {
 					<input
 						type="text"
 						name="firstName"
-						placeholder="First Name"
 						className="border border-gray-800 p-2 rounded outline-none"
                         onChange={formik.handleChange}
                         value={formik.values.firstname}
@@ -36,8 +40,7 @@ const Formik = () => {
 					</label>
 					<input
 						type="text"
-						name="lastName"
-						placeholder="First Name"
+                        name='lastname'
 						className="border border-gray-800 p-2 rounded outline-none"
                         onChange={formik.handleChange}
                         value={formik.values.lastname}
@@ -50,7 +53,6 @@ const Formik = () => {
 					<input
 						type="text"
 						name="email"
-						placeholder="First Name"
 						className="border border-gray-800 p-2 rounded outline-none"
                         onChange={formik.handleChange}
                         value={formik.values.email}
@@ -63,14 +65,13 @@ const Formik = () => {
 					<input
 						type="text"
 						name="password"
-						placeholder="First Name"
 						className="border border-gray-800 p-2 rounded outline-none"
                         onChange={formik.handleChange}
                         value={formik.values.password}
 					/>
 				</div>
 				<div className="text-center w-[30%] mx-auto">
-					<button className="bg-gray-800 text-white w-full py-2 rounded">
+					<button type='submit' className="bg-gray-800 text-white w-full py-2 rounded">
 						Submit
 					</button>
 				</div>
