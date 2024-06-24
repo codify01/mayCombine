@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const secret = process.env.SECRET
+const nodemailer = require('nodemailer')
 
 
 
@@ -69,5 +70,31 @@ const postRegister = (req,res)=>{
     })
 }
 
+const sendMail = ()=>{
+    const transporter = nodemailer.createTransport({
+       service: 'gmail',
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.EMAILPASS,
+        },
+      });
+      let mailOptions = {
+        from: process.env.EMAIL,
+        to: "amoleuthman2023@gmail.com, ", // list of receivers
+        subject: "Your registration was sucessfull!!! ✔", // Subject line
+        // text: "Hello world?", // plain text body
+        html: "<b>Hello world?</b>", // html body
+      }
 
-module.exports = {postRegister, getRegister, getSignin, postSignin, getuser}
+      transporter.sendMail(mailOptions).then((info)=>{
+        res.status(201).json({message:'Mail sent succefully', status:true})
+        console.log(info)
+        }).catch((err)=>{
+          res.status(500).json({message:'Mail was not sent succefully', status:false})
+        console.log(err);
+      })
+//  console.log('email sent');
+}
+
+
+module.exports = {postRegister, getRegister, getSignin, postSignin, getuser, sendMail}
