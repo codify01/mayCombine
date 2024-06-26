@@ -11,6 +11,7 @@ import NotFound from './components/NotFound'
 import Profile from './components/Profile'
 import Formik from './components/Formik'
 
+
 const App = () => {
   const navigate = useNavigate()
   let authToken = localStorage.getItem("token")
